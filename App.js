@@ -21,7 +21,8 @@ export default function App() {
       <Field mined />
       <Field mined opened />
       <Field mined opened exploded />
-      <StatusBar style="auto" />
+      <Field flagged />
+      <Field flagged opened />
     </View>
   );
 }
