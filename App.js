@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Alert } from 'react-native';
 import params from './src/params';
 import MineField from './src/components/MineField';
-import { createMinedBoard, cloneBoard, openField, hasExplosion, wonGame, showMines, invertFlag } from './src/functions';
+import { createMinedBoard, cloneBoard, openField, hasExplosion, wonGame, showMines, invertFlag, flagsUsed } from './src/functions';
 import { Component } from 'react';
-
+import Header from './src/components/Header';
 export default class App extends Component {
-  
+
   constructor(props) {
     super(props)
     this.state = this.createState()
@@ -38,11 +38,11 @@ export default class App extends Component {
       Alert.alert('Peeeerdeu!')
     }
 
-    if(won) {
+    if (won) {
       Alert.alert('Parabens!')
     }
 
-    this.setState({board, lost, won})
+    this.setState({ board, lost, won })
   }
   onSelectField = (row, column) => {
     const board = cloneBoard(this.state.board)
@@ -59,11 +59,9 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Iniciando o Mines!</Text>
-        <Text>
-          Tamanho da grade:
-          {`${params.getRowsAmmount()}x${params.getColumnsAmount()}`}
-        </Text>
+        <Header flagsLeft={this.minesAmount() - flagsUsed(this.state.board)}
+          onNewGame={() => this.setState(this.createState())}
+          onFlagPress={() => this.setState({ showLevelSelection: true })} />
         <View style={styles.board}>
           <MineField board={this.state.board} onOpenField={this.onOpenField} onSelectField={this.onSelectField} />
         </View>
