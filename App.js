@@ -1,12 +1,15 @@
+import { Provider } from 'react-redux'
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import MenuNavigator from './Navigator'
+import storeConfig from './store/storeConfig'
+
+const store = storeConfig()
 export default class App extends Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <Provider store={store}>
         <MenuNavigator />
-      </View>
+      </Provider >
     )
   }
 }
